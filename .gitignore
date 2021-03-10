@@ -1,0 +1,5 @@
+node/node_modules
+mysql
+.vscode
+node/.ash_history
+node/.node_repl_history
