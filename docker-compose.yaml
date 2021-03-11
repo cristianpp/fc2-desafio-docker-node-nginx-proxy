@@ -6,12 +6,13 @@ services:
     build: 
       context: ./node
       dockerfile: Dockerfile.prod
-    image: cristianpietro/node:prod
+    entrypoint: yarn dev:server
     container_name: app_node
     networks: 
       - node-network
     volumes: 
       - ./node:/usr/src/app
+      - ./node/node_modules:/usr/src/app/node_modules
     tty: true
     ports: 
       - "3000:3000"
@@ -22,12 +23,13 @@ services:
     build: 
       context: ./nginx
       dockerfile: Dockerfile.prod
-    image: cristianpietro/nginx:prod
     container_name: nginx_node
     networks: 
       - node-network
     ports: 
       - "8080:80"
+    depends_on: 
+       - app 
 
   db:
     image: mysql:5.7
